@@ -1,5 +1,8 @@
 import os
 import time
+import wget
+import re
+
 from translation import Translation
 from pyrogram import Client, Filters, InlineKeyboardMarkup, InlineKeyboardButton
 from helper.ytdlfunc import extractYt, create_buttons
@@ -39,16 +42,35 @@ async def ytdl(_, message):
         )
         return
     buttons = InlineKeyboardMarkup(list(create_buttons(formats)))
-    sentm = await message.reply_text(text=Translation.PROCESS_START)
-    try:
-        # Todo add webp image support in thumbnail by default not supported by pyrogram
-        # https://www.youtube.com/watch?v=lTTajzrSkCw
-        await message.reply_photo(thumbnail_url, caption=title, reply_markup=buttons)
-        await sentm.delete()
-    except Exception as e:
+    start_message = await message.reply_text(text=Translation.PROCESS_START)
+    thumbnail = os.getcwd() + "/" + "thumbnails" + "/" + str(message.from_user.id) + ".jpg"
+    if os.path.exists(thumbnail):
         try:
-            thumbnail_url = "https://telegra.ph/file/ce37f8203e1903feed544.png"
-            await message.reply_photo(thumbnail_url, caption=title, reply_markup=buttons)
-            await sentm.delete()
-        except Exception as e:
-            await sentm.edit(f"<code>{e}</code> #Error")
+            await message.reply_photo(thumbnail, caption=title, reply_markup=buttons)
+            await start_message.delete()
+        except IndexError:
+            pass
+    else:
+        yt_thumb_image_path = os.getcwd() + "/" + "YouTubeThumb" + "/"
+        if not os.path.isdir(yt_thumb_image_path):
+            os.makedirs(yt_thumb_image_path)
+        yt_folder = [f for f in os.listdir(yt_thumb_image_path)]
+        for f in yt_folder:
+            try:
+                os.remove(os.path.join(yt_thumb_image_path, f))
+            except IndexError:
+                pass
+        yt_thumb_image = os.getcwd() + "/" + "YouTubeThumb" + "/" + str(message.from_user.id) + ".jpg"
+        try:
+            thumb_url = message.text
+            exp = "^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*"
+            s = re.findall(exp, thumb_url)[0][-1]
+            thumb = f"https://i.ytimg.com/vi/{s}/maxresdefault.jpg"
+            wget.download(thumb, yt_thumb_image, bar=None)
+            await message.reply_photo(yt_thumb_image, caption=title, reply_markup=buttons)
+            await start_message.delete()
+        except Exception:
+            a = await start_message.edit(text=Translation.URL_ERROR)
+            time.sleep(5)
+            await a.delete()
+            return

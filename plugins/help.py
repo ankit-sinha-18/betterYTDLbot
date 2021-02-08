@@ -36,7 +36,7 @@ async def help_me(client, update):
         reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("VIEW THUMB", callback_data="view_thumb"),
-                 InlineKeyboardButton("DEL THUMB", callback_data="del_thumb")],
+                 InlineKeyboardButton("DEL THUMB", callback_data="thumb_del_conf")],
                 [InlineKeyboardButton("HELP", callback_data="start"),
                  InlineKeyboardButton("Close", callback_data="close")]
             ])

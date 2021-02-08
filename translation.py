@@ -2,12 +2,10 @@ class Translation(object):
     HELP_TEXT = "<b>These are my available options</b> 😊"
     DOWNLOAD_START = "📥<b>DOWNLOADING </b>📥<i>Plz wait..</i>"
     UPLOAD_START = "📤<b>UPLOADING </b>📤<i>Plz wait..</i>"
-    PROCESS_START = "Processing Youtube Url 🔎 🔎 🔎"
+    PROCESS_START = "<b>Processing Youtube Url...</b>"
     FAILED_LINK = "<b>Failed To Fetch Youtube Data...</b>\n<code>Please try again after some time.If " \
                   "problem persists, May be your server IP got blocked by the YouTube </code>😔 "
-    DEL_CUSTOM_THUMB_NAIL = "✅ <code>Custom thumbnail cleared successfully. Thumbnail won't be available to the downloading " \
-                            "media, unless you upload an image !</code> "
-    SAVED_CUSTOM_THUMB_NAIL = "<b>✅ Thumbnail Saved Successfully</b>\n<code>This file will be used in upcoming YouTube " \
+    SAVED_CUSTOM_THUMB_NAIL = "<b>✅ Thumbnail Saved Successfully</b>\n<code>This file will be used in next YouTube " \
                               "downloads until you clear it !</code> "
     WELCOME_TEXT = "Hey.. <b>{}</b>\n\n1️⃣ <code>Currently supports single YouTube Urls, Bot will download the media, " \
                    "screenshots & a sample video automatically</code>\n\n2️⃣ <code>Bot won't " \
@@ -28,5 +26,9 @@ class Translation(object):
     TRIM_WAIT = "<b>Attention</b>⚠️\n<code>Please Wait 30Sec for a sample video. Be patient</code> 🤪"
     THANKS_MESSAGE = "<b>Thanks for using me 😍\nHave a nice day</b>💕"
     SELECT_MEDIA = "<b>Select the required media type </b>"
-    THUMB_NAIL_URL = "https://static10.tgstat.ru/channels/_0/96/96faf804011bb615badb93e6921c65e0.jpg"
     SELECT_MEDIA_TYPE = "<b>Choose the required media type:</b>"
+    DEL_THUMB_CONFIRM = "⚠️ <b>Do you wish to remove thumbnail?</b>\n<code>Thumbnail won't be available in the files " \
+                        "when you delete it!</code> "
+    DEL_CUSTOM_THUMB_NAIL = "✅ <b>Thumbnail cleared successfully.</b>\n<code>Thumbnail won't be available to the " \
+                            "downloading media, unless you upload an image !</code> "
+    URL_ERROR = "<b>⚠️ Attention :</b>\nYour URL having some HTTP Errors ! Try with different URL..."

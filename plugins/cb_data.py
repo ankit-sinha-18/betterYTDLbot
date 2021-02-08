@@ -1,7 +1,7 @@
 import asyncio
 import os
 
-from plugins.sub_functions import view_thumbnail, delete_thumbnail, close_button
+from plugins.sub_functions import view_thumbnail, close_button, del_thumb_confirm, delete_thumbnail
 from plugins.help import help_me, start_bot
 from plugins.gen_ss import generate_screen_shot
 
@@ -46,8 +46,11 @@ async def catch_youtube_fmtid(c, m):
 @Client.on_callback_query()
 async def catch_youtube_dldata(c, q):
     thumb_image_path = os.getcwd() + "/" + "thumbnails" + "/" + str(q.from_user.id) + ".jpg"
-    if not os.path.exists(thumb_image_path):
-        thumb_image_path = None
+    yt_thumb_image_path = os.getcwd() + "/" + "YouTubeThumb" + "/" + str(q.from_user.id) + ".jpg"
+    if os.path.exists(thumb_image_path):
+        thumb_image = thumb_image_path
+    else:
+        thumb_image = yt_thumb_image_path
     file_name = str(Config.PRE_FILE_TXT)
     cb_data = q.data
     # Callback Data Check (for Youtube formats)
@@ -70,7 +73,6 @@ async def catch_youtube_dldata(c, q):
                 pass
         await q.edit_message_text(text=Translation.DOWNLOAD_START)
         filepath = os.path.join(saved_file_path, filext)
-
         audio_command = [
             "youtube-dl",
             "-c",
@@ -100,7 +102,7 @@ async def catch_youtube_dldata(c, q):
                 media=filename,
                 caption=os.path.basename(filename),
                 title=os.path.basename(filename),
-                thumb=thumb_image_path
+                thumb=thumb_image
             )
 
         if cb_data.startswith("video"):
@@ -110,7 +112,7 @@ async def catch_youtube_dldata(c, q):
                 media=filename,
                 duration=dur,
                 caption=os.path.basename(filename),
-                thumb=thumb_image_path,
+                thumb=thumb_image,
                 supports_streaming=True
             )
 
@@ -119,7 +121,7 @@ async def catch_youtube_dldata(c, q):
             med = InputMediaDocument(
                 media=filename,
                 caption=os.path.basename(filename),
-                thumb=thumb_image_path
+                thumb=thumb_image
             )
 
         if cb_data.startswith("docvideo"):
@@ -128,7 +130,7 @@ async def catch_youtube_dldata(c, q):
             med = InputMediaDocument(
                 media=filename,
                 caption=os.path.basename(filename),
-                thumb=thumb_image_path
+                thumb=thumb_image
             )
 
         if med:
@@ -137,20 +139,23 @@ async def catch_youtube_dldata(c, q):
         else:
             print("med not found")
 
+######################################### CB Data query for Bot Settings ###############################################
     else:
         # Callback Data Check (for bot settings)
-        if cb_data.startswith(("help", "view_thum", "del_thum", "close", "start",)):
+        if cb_data.startswith(("help", "view_thumb", "close", "start", "thumb_del_conf", "del_sure")):
             if cb_data.startswith("help"):
                 await help_me(c, q)
             if cb_data.startswith("close"):
                 await close_button(c, q)
-            if cb_data.startswith("del_thumb"):
-                await delete_thumbnail(c, q)
             if cb_data.startswith("view_thumb"):
                 await view_thumbnail(c, q)
             if cb_data.startswith("start"):
                 await start_bot(c, q)
-
+            if cb_data.startswith("thumb_del_conf"):
+                await del_thumb_confirm(c, q)
+            if cb_data.startswith("del_sure"):
+                await delete_thumbnail(c, q)
+########################################################################################################################
 
 async def send_file(c, q, med):
     try:
