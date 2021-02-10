@@ -9,7 +9,7 @@
 
 <br />
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/m4mallu/betterTYDLbot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/m4mallu/betterYTDLbot)
 
 ## Legendary way:
 
