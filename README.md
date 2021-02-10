@@ -4,10 +4,12 @@
 ## Easy Installation:
 
 **Deploy in Heroku** (Press the below button)
+
+[Heroku having some problems with youtube-dl, so may not work properly. Try some other VPS if possible.]
+
 <br />
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/m4mallu/betterytdlbot)
-
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/m4mallu/betterTYDLbot)
 
 ## Legendary way:
 

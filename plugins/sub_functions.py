@@ -5,11 +5,10 @@ from pyrogram import (Client, InlineKeyboardButton, InlineKeyboardMarkup, Filter
 from translation import Translation
 from plugins.help import help_me
 
-config_path = os.path.join(os.getcwd(), 'config.py')
-if os.path.isfile(config_path):
-    from config import Config
-else:
+if bool(os.environ.get("ENV", False)):
     from sample_config import Config
+else:
+    from config import Config
 
 
 @Client.on_message(Filters.photo)
@@ -26,7 +25,7 @@ async def save_photo(client, update):
     thumb_image = os.getcwd() + "/" + "thumbnails" + "/" + str(update.from_user.id) + ".jpg"
     await client.download_media(message=update, file_name=thumb_image)
     await update.delete()
-    b= await client.send_message(chat_id=update.chat.id, text=Translation.SAVED_CUSTOM_THUMB_NAIL)
+    b = await client.send_message(chat_id=update.chat.id, text=Translation.SAVED_CUSTOM_THUMB_NAIL)
     time.sleep(5)
     await b.delete()
 

@@ -13,11 +13,10 @@ from helper.ffmfunc import duration
 from helper.ytdlfunc import downloadvideocli, downloadaudiocli
 from translation import Translation
 
-config_path = os.path.join(os.getcwd(), 'config.py')
-if os.path.isfile(config_path):
-    from config import Config
-else:
+if bool(os.environ.get("ENV", False)):
     from sample_config import Config
+else:
+    from config import Config
 
 @Client.on_callback_query()
 async def catch_youtube_fmtid(c, m):

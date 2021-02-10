@@ -8,11 +8,10 @@ from pyrogram import Client, Filters, InlineKeyboardMarkup, InlineKeyboardButton
 from helper.ytdlfunc import extractYt, create_buttons
 from plugins.help import help_me
 
-config_path = os.path.join(os.getcwd(), 'config.py')
-if os.path.isfile(config_path):
-    from config import Config
-else:
+if bool(os.environ.get("ENV", False)):
     from sample_config import Config
+else:
+    from config import Config
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 

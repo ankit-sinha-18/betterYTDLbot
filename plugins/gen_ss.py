@@ -5,11 +5,10 @@ from pyrogram import InputMediaPhoto
 from helper.gen_ss_help import generate_screen_shots
 from plugins.trim_video import trim
 
-config_path = os.path.join(os.getcwd(), 'config.py')
-if os.path.isfile(config_path):
-    from config import Config
-else:
+if bool(os.environ.get("ENV", False)):
     from sample_config import Config
+else:
+    from config import Config
 
 async def generate_screen_shot(client, update):
     await client.send_chat_action(chat_id=update.message.chat.id, action="upload_document")

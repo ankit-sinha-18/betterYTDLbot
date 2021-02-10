@@ -13,7 +13,8 @@
         "API_HASH": {"description": "Get this value from https://my.telegram.org" , "required": true},
         "BOT_TOKEN": {"description": "Get Bot Token From BotFather Bot","required": true},
         "AUTH_USERS": {"description": "List of userIDs seperated by <space>","required": true},
-        "PRE_FILE_TXT": {"description": "Text to be used prior to downloaded file name","required": true}
+        "PRE_FILE_TXT": {"description": "Text to be used prior to downloaded file name","required": true},
+        "ENV": {"description": "Set this to ANYTHING","value": "ANYTHING"}
   },
       "buildpacks": [
         {"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"},

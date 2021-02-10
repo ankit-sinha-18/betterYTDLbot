@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 from pyrogram import InlineKeyboardButton
 import youtube_dl
-import os
-import wget
 from utils.util import humanbytes
 import asyncio
 
